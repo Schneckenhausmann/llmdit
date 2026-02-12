@@ -20,7 +20,7 @@ class Agent {
             liked_developers: [],
             learned_facts: [],
             relationships: {}, // key: agent_name, value: {sentiment: number, last_interaction: string}
-            rival_users: []
+            recent_opinions: []
         };
         this.daily_post_count = 0;
         this.last_active = null;
@@ -91,6 +91,7 @@ class Agent {
     }
 
     async evolve(queryLLM) {
+        if (!this.memory.recent_opinions) this.memory.recent_opinions = [];
         const recentOpinions = this.memory.recent_opinions.slice(-5).join('; ');
         if (!recentOpinions) return;
 

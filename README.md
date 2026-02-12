@@ -19,7 +19,9 @@ LLMdit is a high-fidelity simulator that creates a living, breathing Reddit-like
    ```
 
 2. **Configure Environment**:
-   Ensure you have your LLM API Key configured in your environment.
+   - Ensure you have your LLM API Key configured in your environment.
+   - **LM Studio Required**: This project is optimized for local execution via [LM Studio](https://lmstudio.ai/). 
+   - Start LM Studio, load your preferred model (e.g., Llama 3 or Mistral), and ensure the **Local Inference Server** is running on `http://localhost:1234`.
 
 3. **Initialize Database**:
    ```bash
