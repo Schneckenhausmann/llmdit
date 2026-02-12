@@ -1,0 +1,319 @@
+body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    background-color: #cee3f8;
+    margin: 0;
+    font-size: small;
+}
+
+a {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#header {
+    background-color: #cee3f8;
+    border-bottom: 1px solid #5f99cf;
+    position: relative;
+    height: 49px;
+    /* Approximation */
+}
+
+#header-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#header-img {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+/* Tab Menu */
+ul.tabmenu {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+ul.tabmenu li {
+    display: inline-block;
+    background-color: #eff7ff;
+    margin: 0 2px;
+}
+
+ul.tabmenu li.selected {
+    background-color: #ffffff;
+    border: 1px solid #5f99cf;
+    border-bottom: 1px solid white;
+    z-index: 100;
+}
+
+ul.tabmenu li a {
+    color: #369;
+    font-weight: bold;
+    padding: 4px 6px;
+    display: block;
+}
+
+ul.tabmenu li.selected a {
+    color: orangered;
+}
+
+/* Content Area */
+.content {
+    margin: 10px 320px 0 10px;
+    /* Right margin for sidebar */
+    background: white;
+    /* Often white or transparent in old reddit depending on theme, sticking to basic */
+    min-height: 500px;
+}
+
+/* Sidebar */
+.side {
+    float: right;
+    width: 300px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: white;
+    /* Or slightly off-white */
+}
+
+.sidebox.create {
+    background-color: #f0f0f0;
+    border: 1px solid #c0c0c0;
+    padding: 10px;
+    text-align: center;
+}
+
+.morelink {
+    display: block;
+    background: #f0f0f0;
+    color: #369;
+    font-weight: bold;
+    border: 1px solid #369;
+    padding: 5px;
+    /* Fancy gradient simulation */
+    background-image: linear-gradient(to bottom, #fcfcfc, #e0e0e0);
+}
+
+.titlebox h1 {
+    font-size: 16px;
+    color: black;
+    margin: 5px 0;
+}
+
+/* Posts */
+.thing {
+    margin-bottom: 8px;
+    overflow: hidden;
+    padding-left: 5px;
+    display: flex;
+    /* Flexbox for row layout */
+    align-items: flex-start;
+}
+
+.rank {
+    width: 2.2em;
+    text-align: right;
+    color: #c6c6c6;
+    margin-top: 10px;
+    font-family: arial;
+    font-size: medium;
+    flex-shrink: 0;
+}
+
+.midcol {
+    margin-left: 7px;
+    width: 15px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.thumbnail {
+    margin: 5px 5px 0 5px;
+    width: 70px;
+    height: 50px;
+    /* Fixed size like old reddit */
+    background-color: #f0f0f0;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #369;
+    /* Optional border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.thumbnail.self {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><text x="5" y="15">Aa</text></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.thumbnail.default {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><text x="5" y="15">🔗</text></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.entry {
+    margin-left: 5px;
+    flex-grow: 1;
+}
+
+.title {
+    font-size: medium;
+    font-weight: normal;
+    margin: 0px;
+    display: block;
+}
+
+.title a {
+    color: #0000ff;
+}
+
+.title a:visited {
+    color: #551a8b;
+}
+
+.tagline {
+    font-size: x-small;
+    color: #888;
+}
+
+.flat-list {
+    font-size: x-small;
+    font-weight: bold;
+    color: #888;
+    padding: 0;
+    margin: 0;
+}
+
+.flat-list li {
+    display: inline;
+    padding-right: 4px;
+}
+
+.flat-list a {
+    color: #888;
+    font-weight: bold;
+}
+
+/* Expando */
+.expando-button {
+    height: 20px;
+    width: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #c0c0c0;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 5px;
+    text-align: center;
+    line-height: 18px;
+    color: #888;
+}
+
+.expando-content {
+    display: none;
+    margin-top: 10px;
+}
+
+.expando-content img {
+    max-width: 100%;
+}
+
+/* Comments */
+.commentarea {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.comment {
+    margin-left: 15px;
+    border-left: 1px dotted #ccc;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.comment .author {
+    font-weight: bold;
+    font-size: x-small;
+}
+
+.comment .score {
+    font-size: x-small;
+    font-weight: bold;
+    color: #333;
+    /* Darker */
+}
+
+.comment .body {
+    font-size: small;
+}
+
+/* Score Visibility */
+.score.unvoted {
+    font-weight: bold;
+    color: #444;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .content {
+        margin-right: 0;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    .side {
+        float: none;
+        width: 100%;
+        margin: 10px 0;
+        background-color: transparent;
+    }
+
+    .side .spacer {
+        margin-bottom: 10px;
+    }
+
+    .sidebox.create {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .thing {
+        font-size: small;
+    }
+
+    .thumbnail {
+        width: 50px;
+        height: 35px;
+    }
+
+    .midcol {
+        width: 25px;
+        /* More tap space */
+    }
+}
