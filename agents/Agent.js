@@ -10,6 +10,8 @@ class Agent {
         this.personality = data.personality;
         this.modifier = data.modifier;
         this.quirk = data.quirk;
+        this.voice_rhythm = data.voice_rhythm;
+        this.formatting_style = data.formatting_style;
         this.interests = data.interests;
         this.aggression = data.aggression;
         this.initiative = data.initiative;

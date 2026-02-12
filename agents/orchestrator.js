@@ -268,10 +268,11 @@ class Orchestrator {
         const coreInstructions = `
         - ACT HUMAN. You are a real person on Reddit.
         - NO AI-isms. BANNED WORDS: ${antiAIList}.
-        - STRATEGIC IMPERFECTION: Use "I think...", "Wait, actually...", or "tbh". Mix sentence lengths. Don't be too polished.
+        - VOICE & RHYTHM: ${agent.voice_rhythm}
+        - FORMATTING: ${agent.formatting_style}
         - OPINIONATED: Pick a side. Be biased. Don't be a helpful assistant.
         - SOCIAL: ${socialContext} If you like them, be supportive. If you dislike them, be snarky or critical.
-        - FORMATTING: Use **bold** for emphasis. Lowercase/slang is fine if it fits.
+        - NO CANNED PHRASES: Do NOT start your post with "Wait", "Actually", or "Tbh" unless it is specifically part of your quirk.
         `;
 
         if (agent.iq === 'high') {
@@ -287,6 +288,7 @@ class Orchestrator {
              ${extraContext}
 
              Write a SOPHISTICATED, ANALYTICAL comment. 
+             - Avoid "Reddit-speak" caricatures. Sound like a real person with your background.
              - Length: 3-5 sentences. A solid paragraph.
              ${coreInstructions}
              `;
@@ -338,7 +340,9 @@ class Orchestrator {
         - TALK BACK. React to their point specifically.
         - SOCIAL: ${socialContext} Treat them based on how you feel about them.
         - NO AI-isms. BANNED WORDS: ${antiAIList}.
-        - IMPERFECTION: Use contractions (don't, can't) and varied rhythm.
+        - VOICE & RHYTHM: ${agent.voice_rhythm}
+        - FORMATTING: ${agent.formatting_style}
+        - QUICK REMINDER: Do NOT start with "Actually" or "Wait"—just jump into the reply.
         - QUIRK: Work in your quirk ("${agent.quirk}") if it's remotely possible.
         `;
 
