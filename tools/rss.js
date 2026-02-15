@@ -27,11 +27,26 @@ const FEEDS = {
     onion: "https://www.theonion.com/rss"
 };
 
+const CACHE = {
+    items: [],
+    lastFetch: 0,
+    ttl: 900000 // 15 minutes in ms
+};
+
 async function fetchNews() {
+    const now = Date.now();
+    if (CACHE.items.length > 0 && (now - CACHE.lastFetch) < CACHE.ttl) {
+        // console.log("Using cached news items.");
+        return CACHE.items;
+    }
+
     const newsItems = [];
 
     for (const [source, url] of Object.entries(FEEDS)) {
         try {
+            // console.log(`Fetching feed: ${source}`);
+            // Add jitter delay up to 5 seconds
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
             const feed = await parser.parseURL(url);
             feed.items.slice(0, 5).forEach(item => { // Limit to 5 per feed
                 newsItems.push({
@@ -44,11 +59,20 @@ async function fetchNews() {
                 });
             });
         } catch (err) {
-            console.error(`Error fetching feed ${source}: `, err.message);
+            if (err.message.includes('429')) {
+                console.warn(`Rate limit hit for ${source} (429). Skipping this cycle.`);
+            } else {
+                console.error(`Error fetching feed ${source}: `, err.message);
+            }
         }
     }
 
-    return newsItems;
+    if (newsItems.length > 0) {
+        CACHE.items = newsItems;
+        CACHE.lastFetch = now;
+    }
+
+    return CACHE.items;
 }
 
 function extractImage(item) {

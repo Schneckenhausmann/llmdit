@@ -10,8 +10,10 @@ window.addEventListener('load', handleRouting);
 function handleRouting() {
     const hash = window.location.hash;
     if (hash.startsWith('#/post/')) {
-        const postId = hash.split('/')[2];
-        loadPostDetails(postId);
+        const parts = hash.split('/');
+        const postId = parts[2];
+        const sort = parts[3] || 'best';
+        loadPostDetails(postId, sort);
     } else {
         showFeed();
     }
@@ -92,14 +94,18 @@ function renderPosts(posts) {
     });
 }
 
-async function loadPostDetails(postId) {
+async function loadPostDetails(postId, sort = 'best') {
     siteTable.style.display = 'none';
     postView.style.display = 'block';
+    // Update sort dropdown without triggering another load
+    const sortSelect = document.getElementById('comment-sort');
+    if (sortSelect) sortSelect.value = sort;
+
     postViewContent.innerHTML = 'Loading...';
     commentList.innerHTML = '';
 
     try {
-        const response = await fetch(`/api/posts/${postId}/comments`);
+        const response = await fetch(`/api/posts/${postId}/comments?sort=${sort}`);
         const data = await response.json();
 
         // Fetch Post Details
@@ -125,8 +131,12 @@ function renderPostDetail(post) {
     const isImage = post.image_url || (post.url && post.url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 
     let contentHtml = '';
-    if (isImage) {
-        contentHtml = `<div class="media-preview"><img src="${post.image_url || post.url}" style="max-width:100%"></div>`;
+    const tweetHtml = renderTweet(post.content);
+
+    if (tweetHtml) {
+        contentHtml = contentHtml = `<div class="usertext-body">${tweetHtml}</div>`;
+    } else if (isImage) {
+        contentHtml = `<div class="media-preview"><img src="${post.image_url || post.url}"></div>`;
     } else if (post.content) {
         // Use marked to parse markdown
         const safeContent = marked.parse(post.content);
@@ -208,6 +218,39 @@ function renderComments(container, comments) {
     roots.forEach(root => {
         container.appendChild(renderNode(root));
     });
+}
+
+function renderTweet(content) {
+    if (!content) return null;
+    const twitterMatch = content.match(/\[TWITTER:\s*(@\w+)\]\s*([\s\S]+)/);
+    if (!twitterMatch) return null;
+
+    const [_, username, tweetText] = twitterMatch;
+    // Strip the markdown from tweetText for the card if desired, but marked is fine
+    return `
+        <div class="tweet-card">
+            <div class="tweet-header">
+                <div class="tweet-pfp"></div>
+                <div class="tweet-user">
+                    <div class="tweet-name">${username}</div>
+                    <div class="tweet-handle">${username}</div>
+                </div>
+                <div class="tweet-logo">𝕏</div>
+            </div>
+            <div class="tweet-body">${marked.parse(tweetText)}</div>
+            <div class="tweet-footer">
+                ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · ${new Date().toLocaleDateString()}
+            </div>
+        </div>
+    `;
+}
+
+function changeCommentSort(sort) {
+    const hash = window.location.hash;
+    if (hash.startsWith('#/post/')) {
+        const postId = hash.split('/')[2];
+        window.location.hash = `#/post/${postId}/${sort}`;
+    }
 }
 
 

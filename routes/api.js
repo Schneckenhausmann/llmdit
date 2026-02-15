@@ -56,12 +56,23 @@ router.get('/posts/:id', (req, res) => {
 
 // Get comments for a post
 router.get('/posts/:id/comments', (req, res) => {
+    const sort = req.query.sort || 'best';
+    let orderBy = 'comments.score DESC, comments.created_at DESC'; // default best
+
+    if (sort === 'new') {
+        orderBy = 'comments.created_at DESC';
+    } else if (sort === 'old') {
+        orderBy = 'comments.created_at ASC';
+    } else if (sort === 'controversial') {
+        orderBy = 'comments.score ASC, comments.created_at DESC';
+    }
+
     const query = `
         SELECT comments.*, users.username
         FROM comments
         JOIN users ON comments.author_id = users.id
         WHERE comments.post_id = ?
-        ORDER BY comments.created_at ASC
+        ORDER BY ${orderBy}
     `;
     db.all(query, [req.params.id], (err, rows) => {
         if (err) {

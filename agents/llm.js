@@ -12,11 +12,17 @@ async function queryLLM(systemPrompt, userPrompt) {
             ],
             temperature: 0.7,
             max_tokens: 500,
-            model: 'local-model' // LM Studio often ignores this, but it's good practice
+            model: '' // Empty string often works better for "current loaded model" in LM Studio
         });
 
-        console.log(`[LLM] Success. Length: ${response.data.choices[0].message.content.length}`);
-        return response.data.choices[0].message.content;
+        const content = response.data.choices[0]?.message?.content;
+        if (content === undefined || content === null) {
+            console.error('[LLM] Received empty or invalid response structure:', JSON.stringify(response.data));
+            return null;
+        }
+
+        console.log(`[LLM] Success. Length: ${content.length}`);
+        return content;
     } catch (error) {
         if (error.code === 'ECONNREFUSED') {
             console.error('[LLM] Connection refused! Is LM Studio running on port 1234?');

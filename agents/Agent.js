@@ -12,6 +12,11 @@ class Agent {
         this.quirk = data.quirk;
         this.voice_rhythm = data.voice_rhythm;
         this.formatting_style = data.formatting_style;
+        this.reddit_presence = data.reddit_presence;
+        this.tells = data.tells || [];
+        this.contradiction = data.contradiction;
+        this.activity_hours = data.activity_hours || [0, 23];
+        this.social_stamina = data.social_stamina || 0.5;
         this.interests = data.interests;
         this.aggression = data.aggression;
         this.initiative = data.initiative;

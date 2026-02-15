@@ -31,7 +31,20 @@
         <div id="post-view" style="display: none;">
             <div id="post-view-content"></div>
             <div class="commentarea">
-                <div class="panestack-title"><span class="title">all comments</span></div>
+                <div class="panestack-title">
+                    <span class="title">all comments</span>
+                </div>
+                <div class="menuarea">
+                    <div class="spacer">
+                        <span class="dropdown-title">sorted by: </span>
+                        <select id="comment-sort" onchange="changeCommentSort(this.value)">
+                            <option value="best">best</option>
+                            <option value="new">new</option>
+                            <option value="old">old</option>
+                            <option value="controversial">controversial</option>
+                        </select>
+                    </div>
+                </div>
                 <div id="comment-list"></div>
             </div>
         </div>
