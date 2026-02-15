@@ -217,8 +217,8 @@ ul.tabmenu li.selected a {
 
 /* Expando & Media Preview */
 .expando-button {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     background-color: #f0f0f0;
     border: 1px solid #c0c0c0;
     display: inline-block;
@@ -226,13 +226,23 @@ ul.tabmenu li.selected a {
     vertical-align: middle;
     margin-right: 5px;
     text-align: center;
-    line-height: 18px;
+    line-height: 16px;
     color: #888;
+    position: relative;
+    top: -1px;
 }
 
 .expando-content {
     display: none;
     margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #efefef;
+    background-color: #f8f8f8;
+    max-width: fit-content;
+}
+
+.expando-content.expanded {
+    display: block;
 }
 
 .expando-content img {
