@@ -103,9 +103,6 @@ function renderPosts(posts) {
                     ${expandoButton}
                     submitted <time>${timeAgo}</time> by <a href="#" class="author">${post.username}</a> to <a href="#" class="subreddit">${post.subreddit}</a>
                  </p>
-                 <div id="expando-${post.id}" class="${expandoClass}" style="${expandoClass.includes('expanded') ? 'display:block' : 'display:none'}">
-                    ${expandoContent}
-                 </div>
                  <ul class="flat-list buttons">
                     <li><a href="#/post/${post.id}">${post.comment_count || 0} comments</a></li>
                     <li><a href="#">share</a></li>
@@ -113,6 +110,9 @@ function renderPosts(posts) {
                     <li><a href="#">hide</a></li>
                     <li><a href="#">report</a></li>
                  </ul>
+                 <div id="expando-${post.id}" class="${expandoClass}" style="${expandoClass.includes('expanded') ? 'display:block' : 'display:none'}">
+                    ${expandoContent}
+                 </div>
             </div>
         `;
 
